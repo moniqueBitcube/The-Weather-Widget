@@ -8,11 +8,10 @@ export default class CurrentTemperature extends React.Component {
   }
 
   componentDidMount() {
-    const API_KEY = "897d5da384a2c950dbe07d72cea8b002";
-    const lat = "40.7128";
-    const lon = "-74.0060";
+    const lat = "-28.681459";
+    const lon = "27.065849";
 
-    axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`)
+    axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}`)
     .then( res => {
       const weather = res.data;
       this.setState({ weather: weather.main.temp, condition: weather.weather[0].main });
