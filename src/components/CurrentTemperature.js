@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import weatherApi from "../apis/weatherApi";
 export default class CurrentTemperature extends React.Component {
   state = {
     weather: [],
@@ -8,13 +7,13 @@ export default class CurrentTemperature extends React.Component {
   }
 
   componentDidMount() {
-    const lat = "-28.681459";
-    const lon = "27.065849";
+    const lat = "40.7128";
+    const lon = "-74.0060";
 
-    axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}`)
+    axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&cnt=5`)
     .then( res => {
       const weather = res.data;
-      this.setState({ weather: weather.main.temp, condition: weather.weather[0].main });
+      this.setState({ weather: weather.list[0].main.temp, condition: weather.list[0].weather[0].main });
       let temperature = weather;
       console.log(temperature);
     })

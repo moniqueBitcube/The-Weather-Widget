@@ -6,13 +6,14 @@ export default class CurrentWeatherIcon extends React.Component {
   }
 
   componentDidMount() {
-    const lat = "-28.681459";
-    const lon = "27.065849";
 
-    axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}`)
+    const lat = "40.7128";
+    const lon = "-74.0060";
+
+    axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&cnt=5`)
     .then( res => {
       const weather = res.data;
-      this.setState({ icon: weather.weather[0].icon });
+      this.setState({ icon: weather.list[0].weather[0].icon });
       let icon = weather;
       console.log(icon);
     })

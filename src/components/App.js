@@ -1,14 +1,11 @@
 import React from "react";
 import Presentation from './Presentation';
 
-
-
-
 const App = () => {
  
 
   return <div>
-    <Presentation />
+    <Presentation/>
     </div>
 }
 
