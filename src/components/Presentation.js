@@ -52,11 +52,11 @@ export default class Presentation extends React.Component {
       })
 
     weatherAPI()
-    .then (res => {
-      const weather = res.data;
-      console.log("api", weather)
+      .then(res => {
+        const weather = res.data;
+        console.log("api", weather)
 
-    })
+      })
 
 
     let dailyTemp = [];
@@ -67,40 +67,50 @@ export default class Presentation extends React.Component {
     let dayOfWeek = [];
 
     weatherAPI()
-    .then (res => {
-      const weather = res.data;
-      // weatherforecast 
-      // and comment out api
-      weather.daily.map((item, index) => {
-      if (index <= 4) {
-        dailyTemp.push(Math.round(item.temp.day));
-        dailyTimestamp.push(new Date(item.dt * 1000).toLocaleDateString());
+      .then(res => {
+        // Daily forecast
+       // const weather = res.data;
+        // weatherforecast 
+        // and comment out api
+        weatherForecastData.daily.map((item, index) => {
+          if (index <= 4) {
+            dailyTemp.push(Math.round(item.temp.day));
+            dailyTimestamp.push(new Date(item.dt * 1000).toLocaleDateString());
 
-        var timestamp = item.dt;
-        var a = new Date(timestamp * 1000);
-        var weekdays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-        dayOfWeek.push(weekdays[a.getDay()]);
-      }
+            var timestamp = item.dt;
+            var a = new Date(timestamp * 1000);
+            var weekdays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+            dayOfWeek.push(weekdays[a.getDay()]);
+          }
 
-      item.weather.map((item, index) => {
-        if (index <= 4) {
-          dailyCondition.push(item.main);
-          dailyIcon.push(item.icon);
-        }
+          item.weather.map((item, index) => {
+            if (index <= 4) {
+              dailyCondition.push(item.description);
+              dailyIcon.push(item.icon);
+            }
+          })
+
+        });
+
+        dailyTemp = dailyTemp.filter(Boolean);
+        dailyTimestamp = dailyTimestamp.filter(Boolean);
+        dailyCondition = dailyCondition.filter(Boolean);
+        dailyIcon = dailyIcon.filter(Boolean);
+
+        this.setState({ dailyTemp, dailyTimestamp, dailyCondition, dailyIcon, dailyDt, dayOfWeek });
+
+
+        let hourlyTimestamp = [];
+        // Hourly Forecast
+        weatherForecastData.hourly.map((item, index) => {
+          console.log(item)
+          hourlyTimestamp.push(new Date(item.dt * 1000).getHours());
+        })
+
+        hourlyTimestamp = hourlyTimestamp.filter(Boolean);
+        this.setState({ hourlyTimestamp });
+        console.log(hourlyTimestamp)
       })
-
-    });
-
-    dailyTemp = dailyTemp.filter(Boolean);
-    dailyTimestamp = dailyTimestamp.filter(Boolean);
-    dailyCondition = dailyCondition.filter(Boolean);
-    dailyIcon = dailyIcon.filter(Boolean);
-
-
-
-    this.setState({ dailyTemp, dailyTimestamp, dailyCondition, dailyIcon, dailyDt, dayOfWeek });
-
-  })
 
     //Refresh the page every 5 minutes.
     setTimeout(function () {
@@ -164,20 +174,20 @@ export default class Presentation extends React.Component {
                 return (
                   <div className="column" key={index}>
                     <div className="card shadow" style={{ borderRadius: '35px', cursor: 'pointer' }} onClick={this.openBox}>
-                      <div className="card-body p-5">
+                      <div className="card-body p-4">
 
                         <div className="d-flex">
                           <h6 className="flex-grow-1">{this.state.dayOfWeek[index]}</h6>
                           <p>{this.state.dailyTimestamp[index]}</p>
                         </div>
 
-                        <div className="d-flex flex-column text-center mt-5 mb-4">
+                        <div className="d-flex flex-column text-center mt-4 mb-4">
                           <span>
                             <img src={`http://openweathermap.org/img/w/${this.state.dailyIcon[index]}.png`} alt="weather icon" style={{ width: '80px' }} />
                           </span>
 
                           <p className="display-6">{this.state.dailyTemp[index]} °C</p>
-                          <span className="small">{this.state.dailyCondition[index]}</span>
+                          <span className="small" style={{ textTransform: 'capitalize' }}>{this.state.dailyCondition[index]}</span>
                         </div>
                       </div>
                     </div>
@@ -197,11 +207,30 @@ export default class Presentation extends React.Component {
                 closeButtonColor='black'
                 bodyBackgroundColor='white'
                 bodyTextColor='black'
-                bodyHeight='200px'
+                bodyHeight='550px'
                 headerText={this.state.day}
               >
                 <div>
+                  {
+                    this.state.dailyTemp.map((item, index) => {
+                      return (
+                        <div className="column" key={index}>
+                          <div className="card shadow" style={{ borderRadius: '35px', cursor: 'pointer' }} onClick={this.openBox}>
+                            <div className="card-body p-4">
 
+                              <div className="d-flex">
+                                <p>{this.state.hourlyTimestamp[index]}</p>
+                              </div>
+
+                              <div className="d-flex flex-column text-center mt-4 mb-4">
+                               
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    })
+                  }
                 </div>
               </ReactDialogBox>
             </>
