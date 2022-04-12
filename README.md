@@ -16,6 +16,14 @@ When cloning this Project for the first time, you will need to update the node m
 npm install
 ```
 
+## For the Weather API
+
+You have to add a ```.env``` file in the Project with the following added:
+
+```bash
+REACT_APP_WEATHER_API_KEY=API_KEY
+```
+
 ## Starting the Project
 
 When starting the Project you will need to run the following code in VS code, when the project is already opened up.
