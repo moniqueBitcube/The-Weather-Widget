@@ -7,7 +7,7 @@
 }
 
 .subHeader {
-  padding: 10px;
+  padding: 10px 10px 0px 10px;
   text-align: center;
   font-size: 24px;
 }
@@ -15,4 +15,68 @@
 .font {
   font-size: 14pt;
   padding: 5px;
+}
+
+.col{
+  text-align: center;
+}
+
+.align-items-center {
+  align-items: unset !important;
+}
+
+.column {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+@media only screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    padding: 10px;
+    height: unset;
+    
+  }
+
+}
+
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+._br_-q{
+  border-bottom: none !important;
+  align-items: center;
+}
+
+.card {
+  border: unset !important;
+  background-color: unset !important;
+}
+
+.card--body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 10px 0 10px;
+  background-color: unset !important;
+
+}
+
+body {
+  background-image: linear-gradient(#b2cdd8, #8fa765);
+  height: 100%;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.shadow {
+  box-shadow: 0 .10rem 1rem rgba(0,0,0,.15) !important;
 }
