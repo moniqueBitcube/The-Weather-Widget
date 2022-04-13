@@ -13,6 +13,7 @@
     "react-bootstrap": "^2.2.3",
     "react-dom": "^18.0.0",
     "react-js-dialog-box": "^1.1.6",
+    "react-responsive-carousel": "^3.2.23",
     "react-scripts": "5.0.0",
     "react-search-autocomplete": "^6.1.1",
     "web-vitals": "^2.1.4"

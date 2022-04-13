@@ -5,8 +5,8 @@ import { weatherForecastData } from "../data/data";
 export default class WindSpeed extends React.Component {
   constructor(props) {
     super(props);
-      this.state = {
-        windSpeed: this.props.windSpeed,
+    this.state = {
+      windSpeed: this.props.windSpeed,
     }
   }
 
@@ -32,8 +32,8 @@ export default class WindSpeed extends React.Component {
     return (
       <div>
 
-            <p className="" >{this.state.dailyWindSpeed} km/h</p>
-      
+        <i className="fa fa-location-arrow" aria-hidden="true"></i>
+
       </div>
     )
   }

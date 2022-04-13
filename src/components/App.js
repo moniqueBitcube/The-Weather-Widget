@@ -1,13 +1,12 @@
 import React from "react";
-import Presentation from './Presentation';
-
+import WeatherPage from "./WeatherPage";
+import Geolocation from "./Geolocation";
 
 const App = () => {
 
-
   return <div>
-
-    <Presentation />
+    <Geolocation />
+    <WeatherPage />
   </div>
 }
 

@@ -1,25 +1,8 @@
 import axios from "axios";
 import React, { useState } from 'react'
 
-// export function weatherAPI() {
-//   const lat = "51.5085";
-//   const lon = "-0.1258";
-//   const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&cnt=96&units=metric`
-
-//   return axios({
-//     method: "get",
-//     url: url,
-//   })
-//   .then((response) => {
-//     return response;
-//   })
-//   .catch((err) => {
-//     return err;
-//   });
-// }
-
-export const lat = "-28.681459";
-export const lon = "27.065849";
+export const lat = localStorage.getItem("Latitude");
+export const lon = localStorage.getItem("Longitude");
 
 export function currentWeather() {
   const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`
