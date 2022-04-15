@@ -7,6 +7,7 @@ const App = () => {
   return <div>
     <Geolocation />
     <WeatherPage />
+
   </div>
 }
 

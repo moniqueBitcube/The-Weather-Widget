@@ -13,8 +13,9 @@ import { ReactDialogBox } from 'react-js-dialog-box'
 import 'react-js-dialog-box/dist/index.css'
 import Presentation from "./Presentation";
 
+import Geolocation from "./Geolocation";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
+import { Carousel, Thumbs } from 'react-responsive-carousel';
 
 const weekday = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
@@ -22,8 +23,8 @@ export default class WeatherPage extends React.Component {
   constructor(props) {
     super(props);
 
-    var today = new Date(),
-    time = today.toLocaleString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });
+    const today = new Date(),
+      time = today.toLocaleString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });
 
     this.state = {
       cityName: '',
@@ -32,7 +33,12 @@ export default class WeatherPage extends React.Component {
       dailyIcon: [],
       isOpen: false,
       currentTime: time,
-      predictions: []
+      predictions: [],
+      feelsLike: '',
+      wind: '',
+      visibility: '',
+      barometer: '',
+      humidity: ''
     }
   }
 
@@ -41,19 +47,21 @@ export default class WeatherPage extends React.Component {
     currentWeather()
       .then(res => {
         const weather = res.data;
-        console.log(weather)
-        this.setState({ cityName: weather.name, countryName: weather.sys.country });
+
+        this.setState({
+          cityName: weather.name, countryName: weather.sys.country, feelsLike: weather.main.feels_like,
+          wind: weather.wind.speed, visibility: weather.visibility, barometer: weather.main.pressure, humidity: weather.main.humidity
+        });
+
       })
 
 
     weatherAPI()
       .then(res => {
-        // Daily forecast
         const weather = res.data;
-        // weatherforecast 
-        // and comment out api
         const predictions = weather.daily.slice(0, 5);
         this.setState({ predictions });
+        console.log("feelsLike", predictions)
       })
 
     //Refresh the page every 5 minutes.
@@ -107,10 +115,21 @@ export default class WeatherPage extends React.Component {
                   <h6><CurrentTemperature /></h6>
                 </div>
                 <div style={{ margin: '0 auto' }}>
-                  <span className="medium">Updated as of {this.state.currentTime}</span>
+                  <span className="medium" style={{ fontWeight: '600' }}>Updated as of {this.state.currentTime}</span>
+                </div>
+                <div style={{ margin: '0 auto', textAlign: 'center' }} className="subheading">
+                  <div className="small subheading" style={{ paddingTop: '10px' }}>
+                    <span style={{ marginRight: '10px' }}>Feels like {Math.floor(this.state.feelsLike)} °C </span>
+                    <span style={{ marginRight: '10px' }}>Wind <i className="fa fa-location-arrow" aria-hidden="true"></i> {this.state.wind} km/h </span>
+                    <span style={{ marginRight: '10px' }}>Barometer {this.state.barometer} mb </span>
+                    <span>Humidity {this.state.humidity} % </span>
+                  </div>
+                </div>
+                <div>
                 </div>
               </div>
             </div>
+
           </div>
 
           <div className="row" style={{ padding: '0 50px' }}>
@@ -132,8 +151,9 @@ export default class WeatherPage extends React.Component {
                             <img src={`http://openweathermap.org/img/w/${item.weather[0].icon}.png`} alt="weather icon" style={{ width: '80px' }} />
                           </span>
 
-                          <p className="display-6">{item.temp.day} °C</p>
+                          <p className="display-6">{Math.floor(item.temp.day)} °C</p>
                           <span className="small" style={{ textTransform: 'capitalize' }}>{item.weather[0].description}</span>
+                          <span style={{ paddingTop: '10px', textDecoration: 'underline', fontSize: '8pt' }}>View Hourly Forecast</span>
                         </div>
                       </div>
                     </div>
@@ -145,27 +165,29 @@ export default class WeatherPage extends React.Component {
 
         </div>
         <div>
-          {this.state.isOpen && (
-            <>
-              <ReactDialogBox
-                closeBox={this.closeBox}
-                modalWidth='80%'
+          {
+            this.state.isOpen && (
+              <>
+                <ReactDialogBox
+                  closeBox={this.closeBox}
+                  modalWidth='80%'
 
-                bodyHeight='650px'
-                headerText={this.state.dailyTimestamp}
+                  bodyHeight='650px'
+                  headerText='Hourly Forecast'
 
-                headerBackgroundColor="#7F9BA6"
-                headerTextColor="#FFF"
-                bodyBackgroundColor='#7F9BA6'
-                closeButtonColor='#FFF'
-                bodyTextColor='#FFF'
-              >
-                <div >
-                  <Presentation dt={this.state.selectedDay} />
-                </div>
-              </ReactDialogBox>
-            </>
-          )}
+                  headerBackgroundColor="#7F9BA6"
+                  headerTextColor="#FFF"
+                  bodyBackgroundColor='#7F9BA6'
+                  closeButtonColor='#FFF'
+                  bodyTextColor='#FFF'
+                >
+                  <div className="scroll">
+                    <Presentation dt={this.state.selectedDay} />
+                  </div>
+                </ReactDialogBox>
+              </>
+            )
+          }
         </div>
       </div>
 

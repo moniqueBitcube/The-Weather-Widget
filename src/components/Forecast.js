@@ -1,29 +1,28 @@
 import React from "react";
-import axios from "axios";
-import { weatherAPI } from "../apis/weatherApi";
-export default class Forecast extends React.Component {
-  state = {
-    maxTemp: [],
-    minTemp: []
-  }
 
-  componentDidMount() {
-    weatherAPI()
-      .then(res => {
-        const weather = res.data;
-        // this.setState({ maxTemp: weather.list[0].main.temp_max, minTemp: weather.list[0].main.temp_min });
-      })
+export default class Forecast extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      maxTemperature: this.props.maxTemperature,
+      minTemperature: this.props.minTemperature,
+      mornTemperature: this.props.mornTemperature,
+      eveTemperature: this.props.eveTemperature,
+      rain: this.props.rain
+    }
   }
 
   render() {
     return (
       <div>
-        {/* Add to Hourly Page */}
-        <p className="">Max Temperature: {this.state.maxTemp} °C</p>
-        <p className="">Min Temperature: {this.state.minTemp} °C</p>
+        <span className="iconify daily" data-icon="carbon:temperature-max"></span> <span>Max temperature is <span>{Math.floor(this.state.maxTemperature)} °C </span></span> <br />
+        <span className="iconify daily" data-icon="carbon:temperature-min"></span> <span>Min temperature is <span>{Math.floor(this.state.minTemperature)} °C </span></span> <br />
+        <span className="iconify daily" data-icon="eva:sun-outline"></span> <span>Morning's temperature is <span>{Math.floor(this.state.mornTemperature)} °C </span></span> <br />
+        <span className="iconify daily" data-icon="carbon:haze-night"></span> <span>Evening's temperature is <span>{Math.floor(this.state.eveTemperature)} °C </span></span>
+
+        <span>{this.state.rain}</span>
       </div>
     )
   }
-
-
 }

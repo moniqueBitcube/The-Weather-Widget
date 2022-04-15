@@ -10,30 +10,10 @@ export default class WindSpeed extends React.Component {
     }
   }
 
-  componentDidMount() {
-    // weatherAPI()
-    // .then( res => {
-    //   const weather = res.data;
-    //   this.setState({ windSpeed: weather.list[0].wind.speed });
-    // })
-
-    console.log(weatherForecastData)
-
-    let dailyWindSpeed = [];
-    weatherForecastData.daily.map((item, index) => {
-      return dailyWindSpeed.push(item.wind_speed);
-    })
-
-    dailyWindSpeed = dailyWindSpeed.filter(Boolean);
-    this.setState({ dailyWindSpeed })
-  }
-
   render() {
     return (
       <div>
-
-        <i className="fa fa-location-arrow" aria-hidden="true"></i>
-
+        <i className="fa fa-location-arrow" aria-hidden="true"></i> <span style={{ fontSize: '9pt' }}>{Math.floor(this.state.windSpeed)} km/h </span>
       </div>
     )
   }
