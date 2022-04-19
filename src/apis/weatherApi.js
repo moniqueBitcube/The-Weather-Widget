@@ -1,66 +1,68 @@
 import axios from "axios";
-import React, { useState } from 'react'
 
 export const lat = localStorage.getItem("Latitude");
 export const lon = localStorage.getItem("Longitude");
 
+export const search_lat = localStorage.getItem("Search Latitude");
+export const search_lon = localStorage.getItem("Search Longitude");
+
 export function currentWeather() {
-  const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`
+  localStorage.clear();
+  if (lat) {
+    const geo_currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`
 
-  return axios({
-    method: "get",
-    url: currentWeatherUrl,
-  })
-  .then((response) => {
-    return response;
-  })
-  .catch((err) => {
-    return err;
-  });
+    return axios({
+      method: "get",
+      url: geo_currentWeatherUrl,
+    })
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => {
+      return err;
+    });
+  } else {
+    const search_currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${search_lat}&lon=${search_lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`
+
+    return axios({
+      method: "get",
+      url: search_currentWeatherUrl,
+    })
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => {
+      return err;
+    });
+  }
 }
 
-export function weatherAPI(){
-  const weatherUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`
-  
-  return axios({
-    method: "get",
-    url: weatherUrl,
-  })
-  .then((response) => {
-    return response;
-  })
-  .catch((err) => {
-    return err;
-  });
+export function weatherAPI() {
+  if (lat) {
+    const geo_weatherUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`
 
-}
-export default class location extends React.Component{
-state = { 
-  lat: null,
-  lon: null,
-  errorMessage: '',
-};
-  
-  componentDidMount() {
-    window.navigator.geolocation.getCurrentPosition(
-      position => this.setState({ lat: position.coords.latitude, lon: position.coords.longitude }),
-      err => this.setState({ errorMessage: err.message })
-    );
-  }
+    return axios({
+      method: "get",
+      url: geo_weatherUrl,
+    })
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => {
+      return err;
+    });
+  } else {
+    const search_weatherUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${search_lat}&lon=${search_lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`
 
-  componentDidUpdate() {
-    console.log("My component was just updated")
-  }
-
-  render () {
-    if(this.state.errorMessage && !this.state.lat) {
-      return <div>Error: { this.state.errorMessage }</div>
-    }
-
-    if(!this.state.errorMessage && this.state.lat) {
-      return <div >lat={ this.state.lat }</div>
-    }
-
-    // return <div><Spinner message="Please accept location request." /></div>
+    return axios({
+      method: "get",
+      url: search_weatherUrl,
+    })
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => {
+      return err;
+    });
   }
 }

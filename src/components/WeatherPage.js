@@ -137,7 +137,7 @@ export default class WeatherPage extends React.Component {
               this.state.predictions.map((item, index) => {
                 const today = new Date(item.dt * 1000);
                 return (
-                  <div className="column" key={index}>
+                  <div className="column" key={index} style={{borderCollapse: 'collapse'}}>
                     <div className="card shadow hoverEffect" style={{ borderRadius: '35px', cursor: 'pointer' }} onClick={e => this.openBox(item.dt)}>
                       <div className="card-body p-4">
 
@@ -153,7 +153,7 @@ export default class WeatherPage extends React.Component {
 
                           <p className="display-6">{Math.floor(item.temp.day)} °C</p>
                           <span className="small" style={{ textTransform: 'capitalize' }}>{item.weather[0].description}</span>
-                          <span style={{ paddingTop: '10px', textDecoration: 'underline', fontSize: '8pt' }}>View Hourly Forecast</span>
+                          {/* <span style={{ paddingTop: '10px', textDecoration: 'underline', fontSize: '8pt' }}>View Hourly Forecast</span> */}
                         </div>
                       </div>
                     </div>

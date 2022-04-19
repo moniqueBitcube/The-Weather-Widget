@@ -44,11 +44,15 @@ export default class Presentation extends React.Component {
           } else {
             return false;
           }
+          
         });
         this.setState({ predictions: predictions, dailyPredictions: dailyPredictions });
         console.log("dailyPredictions", dailyPredictions)
         console.log("predictions", predictions)
       })
+
+
+ 
   }
 
   render() {
@@ -61,7 +65,7 @@ export default class Presentation extends React.Component {
               this.state.predictions.map((item, index) => {
                 const { twelveHours } = convertToDate(item);
                 return (
-                  <div className="column3" key={index}>
+                  <div className="column3" key={index} id="border">
                     <div className="h-65">
                       <span >
                         <img src={`http://openweathermap.org/img/w/${item.weather[0].icon}.png`} alt="weather icon" style={{ width: '60px' }} />
@@ -120,7 +124,7 @@ export default class Presentation extends React.Component {
                       <Humidity humidity={item.humidity}/>
 
                       <p style={{ fontSize: '14pt' }}>Rain</p>
-                      <span><Rain rain={item.rain}/></span>
+                      <span><Rain rain={Math.floor(item.rain) ? Math.floor(item.rain) : 0}/></span>
                     </div>
                   </div>
                   <hr/>
