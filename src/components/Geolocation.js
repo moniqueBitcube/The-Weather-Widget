@@ -15,12 +15,6 @@ export default class Geolocation extends React.Component {
   }
 
   render () {
-    if(this.state.errorMessage && !this.state.lat) {
-      localStorage.clear();
-      this.state.lat = "-29.865";
-      this.state.lon = "31.05";
-    }
-
     if(!this.state.errorMessage && this.state.lat) {
       localStorage.setItem("Latitude", this.state.lat);
       localStorage.setItem("Longitude", this.state.lon);
