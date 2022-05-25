@@ -7,32 +7,32 @@ export const locations = [
   },
   {
     id: 1,
-    name: 'Bloemfontein',
-    lat: '-29.087217',
-    lon: '26.154898'
+    name: 'Ladybrand',
+    lat: '-29.19448',
+    lon: '27.45739'
   },
   {
     id: 2,
-    name: 'Malmesbury',
-    lat: '-33.350640',
-    lon: '18.869920'
+    name: 'Harrismith',
+    lat: '-28.27276',
+    lon: '29.12946'
   },
   {
     id: 3,
-    name: 'New York',
-    lat: '40.7128',
-    lon: '74.0060'
+    name: 'Kimberley',
+    lat: '-28.741943',
+    lon: '24.771944'
   },
   {
     id: 4,
-    name: 'KwaZulu-Natal',
-    lat: '-30.57249771',
-    lon: '30.57249771'
+    name: 'Smithfield',
+    lat: '-30.20749917',
+    lon: '26.525497898'
   },
   {
     id: 5,
-    name: 'Sani Pass',
-    lat: '-29.587778',
-    lon: '29.294722'
+    name: 'Boksburg',
+    lat: '-26.2325897',
+    lon: '28.2409671'
   }
 ]
